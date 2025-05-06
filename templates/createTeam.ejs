@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"> <!-- character encoding -->
+
+    <!-- For responsive page and proper scaling based on device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <meta name="author" content="pokedreamteam">
+    <meta name="description" content="">
+    <meta name="keywords" content="HTML5, Tags">
+
+    <!-- The following specifies a favicon (browser tab icon)-->
+    <!-- image/png is a mime type -->
+    <!-- <link rel="stylesheet" href="mystyle.css"> -->
+
+    <title>HTML Template #2</title>
+</head>
+
+<body>
+    <form action="/" method="post">
+        <fieldset>
+            <label>Enter name of team: </label> <input type="text" name="name">
+        </fieldset>
+        <fieldset>
+            <label>Select first pokemon</label>
+            <select name="first">
+                <%- pokemon %>
+            </select>
+        </fieldset>
+        <fieldset>
+            <label>Select second pokemon</label>
+            <select name="second">
+                <%- pokemon %>
+            </select>
+        </fieldset>
+        <fieldset>
+            <label>Select third pokemon</label>
+            <select name="third">
+                <%- pokemon %>
+            </select>
+        </fieldset>
+        <fieldset>
+            <label>Select fourth pokemon</label>
+            <select name="fourth">
+                <%- pokemon %>
+            </select>
+        </fieldset>
+        <fieldset>
+            <label>Select fifth pokemon</label>
+            <select name="fifth">
+                <%- pokemon %>
+            </select>
+        </fieldset>
+        <fieldset>
+            <label>Select sixth pokemon</label>
+            <select name="sixth">
+                <%- pokemon %>
+            </select>
+        </fieldset>
+    </form>
+</body>
+
+</html>
