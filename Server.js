@@ -3,6 +3,17 @@ const path = require("path");
 require('dotenv').config({
     path:path.resolve(__dirname,".env")
 });
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = `mongodb+srv://${process.env.MONGO_DB_USERNAME}:${process.env.MONGO_DB_PASSWORD}@cluster0.gbptl4g.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
 process.stdin.setEncoding('utf8');
 //command input
 process.stdin.on("readable", function (){
