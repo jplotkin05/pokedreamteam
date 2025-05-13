@@ -72,7 +72,7 @@ app.post('/year_selected',async (req,res)=>{
   roster_one.forEach(driver => {
     radio_one+=`
       <label>
-        <input type="radio" name="driverOne" value="${JSON.stringify(driver)}">${driver['givenName']} ${driver['familyName']}
+        <input type="radio" name="driverOne" value='${JSON.stringify(driver)}'>${driver['givenName']} ${driver['familyName']}
       </label><br>
     `;
   });
@@ -80,7 +80,7 @@ app.post('/year_selected',async (req,res)=>{
     roster_two.forEach(driver => {
     radio_two+=`
       <label>
-        <input type="radio" name="driverTwo" value="${JSON.stringify(driver)}">${driver['givenName']} ${driver['familyName']}
+        <input type="radio" name="driverTwo" value='${JSON.stringify(driver)}'>${driver['givenName']} ${driver['familyName']}
       </label><br>
     `;
   });
@@ -92,6 +92,59 @@ app.post('/year_selected',async (req,res)=>{
 
   res.render('yearSelected',return_data)
 })
+
+app.post('/display_players',(req,res)=>{
+  let driver_one =  JSON.parse(req.body['driverOne']);
+  let driver_two = JSON.parse(req.body['driverTwo']);
+  let team_name = req.body['team'];
+  res.render('display_players')
+  let team = {
+    teamName:team_name,
+    drivers:[
+      {
+        driver_name: `${driver_one['givenName']} ${driver_one['familyName']}`,
+        bio: driver_one['url'],
+        nationality:driver_one['nationality'],
+        birthday:driver_one['dateOfBirth']
+      },
+      {
+        driver_name:`${driver_two['givenName']} ${driver_two['familyName']}`,
+        bio: driver_two['url'],
+        nationality:driver_two['nationality'],
+        birthday:driver_two['dateOfBirth']
+      },
+    ]
+  }
+  let display_result = `
+  <table border='1'>
+  <tr>
+    <th>Information</th>
+    <th>${team.drivers[0].driver_name}</th>
+    <th>${team.drivers[1].driver_name}</th>
+  </tr>
+  <tr>
+  <td>Nationality</td>
+  <td>${team.drivers[0].nationality}</td>
+  <td>${team.drivers[1].nationality}</td>
+  </tr>
+   <tr>
+  <td>Birthday</td>
+  <td>${team.drivers[0].birthday}</td>
+  <td>${team.drivers[1].birthday}</td>
+  </tr>
+   <td>Bio</td>
+  <td> <a href="${team.drivers[0].bio}">Driver Bio</a></td>
+  <td> <a href="${team.drivers[1].bio}">Driver Bio</a></td>
+  </tr>
+  </table>
+  `;
+  let return_data = {
+    display:display_result,
+    teamName:team_name
+  }
+  insert_team(team)
+  res.render('display_players',return_data)
+})
 const get_roster = async (year) =>{
   let request  = await fetch(`https://ergast.com/api/f1/${year}/drivers.json`)
   let data = await request.json();
@@ -99,3 +152,15 @@ const get_roster = async (year) =>{
   return data['MRData']['DriverTable']['Drivers']
 }
 //will add rest later :)
+
+async function insert_team(team){
+    try{
+        database = client.db(process.env.MONGO_DB_NAME)
+        await client.connect();
+        let collection = database.collection(process.env.MONGO_COLLECTION);
+        await collection.insertOne(team)
+    }
+    finally{
+        await client.close();
+    }
+}
