@@ -61,7 +61,7 @@ app.post('/year_selected',async (req,res)=>{
   roster_one.forEach(driver => {
     radio_one+=`
       <label>
-        <input type="radio" name="driverOne" value="${JSON.stringify(roster_one)}">${driver['givenName']} ${driver['familyName']}
+        <input type="radio" name="driverOne" value="${JSON.stringify(driver)}">${driver['givenName']} ${driver['familyName']}
       </label><br>
     `;
   });
@@ -69,7 +69,7 @@ app.post('/year_selected',async (req,res)=>{
     roster_two.forEach(driver => {
     radio_two+=`
       <label>
-        <input type="radio" name="driverTwo" value="${JSON.stringify(roster_one)}">${driver['givenName']} ${driver['familyName']}
+        <input type="radio" name="driverTwo" value="${JSON.stringify(driver)}">${driver['givenName']} ${driver['familyName']}
       </label><br>
     `;
   });
