@@ -3,19 +3,19 @@ const path = require("path");
 require('dotenv').config({
     path:path.resolve(__dirname,".env")
 });
-
+process.stdin.setEncoding('utf8');
 //command input
 process.stdin.on("readable", function (){
-    const userInput = process.stdin.read();
+    let userInput = process.stdin.read();
     if(userInput!== null){
       //must trim to properly clean data for reading
-        userInput = userInput.trim()
-      if(userInput === "stop"){
+        const data = userInput.trim()
+      if(data === "stop"){
         process.stdout.write("Shutting down the server.\n")
         process.exit(0);
       }else{
         //invalid command response
-        process.stdout.write(`Invalid command: ${userInput}\n`);
+        process.stdout.write(`Invalid command: ${data}\n`);
       }
     }
     process.stdout.write("Type stop to shutdown the server: ");
