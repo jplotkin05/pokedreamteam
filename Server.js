@@ -30,6 +30,7 @@ app.set("views", path.resolve(__dirname, "templates"));
 const bodyParser = require("body-parser");
 const { cursorTo } = require('readline');
 app.use(bodyParser.urlencoded({extended:false}));
+app.use(express.static(path.join(__dirname, 'public')));
 //listen to port
 let port_number = 6969
 app.listen(port_number, (err) => {
@@ -57,7 +58,6 @@ app.post('/year_selected',async (req,res)=>{
   let roster_one = await get_roster(req.body['first_year'])
   let roster_two = await get_roster(req.body['second_year'])
   let radio_one = "";
-  console.log(roster_one)
   roster_one.forEach(driver => {
     radio_one+=`
       <label>
