@@ -40,6 +40,7 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
 const bodyParser = require("body-parser");
 const { cursorTo } = require('readline');
+const req = require("express/lib/request");
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname, 'public')));
 //listen to port
@@ -153,14 +154,89 @@ const get_roster = async (year) =>{
 }
 //will add rest later :)
 
+app.get('/seeTeams', async (req, res) => {
+  let teams = await get_teams();
+  let text = "";
+  teams.forEach(team => {
+    text += `<h1>${team.team_name}</h1><br><br>
+    <table border='1'>
+  <tr>
+    <th>Information</th>
+    <th>${team.drivers[0].driver_name}</th>
+    <th>${team.drivers[1].driver_name}</th>
+  </tr>
+  <tr>
+  <td>Nationality</td>
+  <td>${team.drivers[0].nationality}</td>
+  <td>${team.drivers[1].nationality}</td>
+  </tr>
+   <tr>
+  <td>Birthday</td>
+  <td>${team.drivers[0].birthday}</td>
+  <td>${team.drivers[1].birthday}</td>
+  </tr>
+   <td>Bio</td>
+  <td> <a href="${team.drivers[0].bio}">Driver Bio</a></td>
+  <td> <a href="${team.drivers[1].bio}">Driver Bio</a></td>
+  </tr>
+  </table><br><br><hr><br><br>`;
+  });
+  let variable = {teams : text};
+  res.render('seeTeams', variable);
+});
+
+app.get('/delete', (req, res) => {
+  res.render('deleteTeam');
+});
+
+app.post('/delete', async (req, res) => {
+  await clear();
+  res.render('deleteTeam');
+});
+
+
 async function insert_team(team){
     try{
-        database = client.db(process.env.MONGO_DB_NAME)
         await client.connect();
+        database = client.db(process.env.MONGO_DB_NAME)
         let collection = database.collection(process.env.MONGO_COLLECTION);
         await collection.insertOne(team)
     }
+    catch(e)
+    {
+      console.error(e);
+    }
     finally{
+        await client.close();
+    }
+}
+
+async function get_teams() {
+  try {
+        await client.connect();
+        const database = client.db(process.env.MONGO_DB_NAME);
+        const collection = database.collection(process.env.MONGO_COLLECTION);
+
+        let filter = {};
+        let result = await collection.find(filter).toArray();
+        return result;
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+}
+
+async function clear() {
+    try {
+        await client.connect();
+        const database = client.db(process.env.MONGO_DB_NAME);
+        const collection = database.collection(process.env.MONGO_COLLECTION);
+        let filter = {};
+        const result = await collection.deleteMany(filter);
+    } catch(e) {
+        console.error(e);
+    } finally {
         await client.close();
     }
 }
