@@ -48,9 +48,43 @@ app.get('/',(req,res)=>{
     res.render('index')
 })
 //view teams
-app.get('/view-teams',(req,res)=>{
-    
-    res.render('seeTeams')
+app.get('/create_team',(req,res)=>{
+    res.render('createTeam')
 })
 
+app.post('/year_selected',async (req,res)=>{
+
+  let roster_one = await get_roster(req.body['first_year'])
+  let roster_two = await get_roster(req.body['second_year'])
+  let radio_one = "";
+  console.log(roster_one)
+  roster_one.forEach(driver => {
+    radio_one+=`
+      <label>
+        <input type="radio" name="driverOne" value="${JSON.stringify(roster_one)}">${driver['givenName']} ${driver['familyName']}
+      </label><br>
+    `;
+  });
+  let radio_two = "";
+    roster_two.forEach(driver => {
+    radio_two+=`
+      <label>
+        <input type="radio" name="driverTwo" value="${JSON.stringify(roster_one)}">${driver['givenName']} ${driver['familyName']}
+      </label><br>
+    `;
+  });
+  let return_data = {
+    year:`${req.body['first_year']} & ${req.body['second_year']}`,
+    first_driver: radio_one,
+    second_driver: radio_two
+  }
+
+  res.render('yearSelected',return_data)
+})
+const get_roster = async (year) =>{
+  let request  = await fetch(`https://ergast.com/api/f1/${year}/drivers.json`)
+  let data = await request.json();
+  // console.log(data['MRData']['DriverTable']['Drivers'])
+  return data['MRData']['DriverTable']['Drivers']
+}
 //will add rest later :)
