@@ -20,45 +20,15 @@
 <body>
     <form action="/" method="post">
         <fieldset>
-            <label>Enter name of team: </label> <input type="text" name="name">
+            <label>Enter the year of your first driver</label> <input type="number" min="1950" max="2024">
+            <label>Enter the year of your second driver</label> <input type="number" min="1950" max="2024">
         </fieldset>
-        <fieldset>
-            <label>Select first pokemon</label>
-            <select name="first">
-                <%- pokemon %>
-            </select>
-        </fieldset>
-        <fieldset>
-            <label>Select second pokemon</label>
-            <select name="second">
-                <%- pokemon %>
-            </select>
-        </fieldset>
-        <fieldset>
-            <label>Select third pokemon</label>
-            <select name="third">
-                <%- pokemon %>
-            </select>
-        </fieldset>
-        <fieldset>
-            <label>Select fourth pokemon</label>
-            <select name="fourth">
-                <%- pokemon %>
-            </select>
-        </fieldset>
-        <fieldset>
-            <label>Select fifth pokemon</label>
-            <select name="fifth">
-                <%- pokemon %>
-            </select>
-        </fieldset>
-        <fieldset>
-            <label>Select sixth pokemon</label>
-            <select name="sixth">
-                <%- pokemon %>
-            </select>
-        </fieldset>
+        <input type="submit" value="submit">
+        <input type="reset" value="reset">
     </form>
+    <div id="driver_info">
+
+    </div>
 </body>
 
 </html>
