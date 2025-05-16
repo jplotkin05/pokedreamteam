@@ -1,8 +1,8 @@
 # F1OfAKind
-**Submitted by**: TBD
-**Group Members:** Jonah Plotkin (jplotki2), RushiKetkar (INSERTUID)
-**App Description:** Allow users to build and showcase their pokemon dream team.
+**Submitted by**: Rushi Ketkar
+**Group Members:** Jonah Plotkin (jplotki2), RushiKetkar (rketkar)
+**App Description:** Allow users to build and showcase their F1 dream team.
 **YouTube Video Link:** TBD
 **APIs:** TBA
-**Contact Email:** TBA
+**Contact Email:** jplotki2@terpmail.umd.edu, rketkar@terpmail.umd.edu
 **Deployed App Link:** TBD
