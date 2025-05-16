@@ -98,7 +98,7 @@ app.post('/display_players',(req,res)=>{
   let driver_one =  JSON.parse(req.body['driverOne']);
   let driver_two = JSON.parse(req.body['driverTwo']);
   let team_name = req.body['team'];
-  res.render('display_players')
+  // res.render('display_players')
   let team = {
     teamName:team_name,
     drivers:[
