@@ -158,8 +158,8 @@ app.get('/seeTeams', async (req, res) => {
   let teams = await get_teams();
   let text = "";
   teams.forEach(team => {
-    text += `<h1>${team.team_name}</h1><br><br>
-    <table border='1'>
+    text += `<h1>Team: ${team.teamName}</h1><br><br>
+    <table border='1' class="table_pos">
   <tr>
     <th>Information</th>
     <th>${team.drivers[0].driver_name}</th>

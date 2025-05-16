@@ -1,6 +1,7 @@
 body {
     background-color: blanchedalmond;
     text-align: center;
+    font-family: 'Roboto';
 }
 
 form {
@@ -9,4 +10,13 @@ form {
 
 fieldset {
     border: 1rem solid black;
+}
+
+.table_pos{
+    margin-left:auto;
+    margin-right:auto;
+}
+h1{
+    color:red;
+    font-size: 36px;
 }
