@@ -191,7 +191,7 @@ app.get('/delete', (req, res) => {
 
 app.post('/delete', async (req, res) => {
   await clear();
-  res.render('deleteTeam');
+  res.render('deleteFeedback');
 });
 
 
